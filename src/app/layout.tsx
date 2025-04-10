@@ -1,3 +1,4 @@
+import AppProvider from "@/providers/AppProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AppProvider>{children}</AppProvider>
         <Toaster closeButton richColors position="top-right" />
       </body>
     </html>
