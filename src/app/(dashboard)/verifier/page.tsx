@@ -1,5 +1,11 @@
+import VerifiersTable from "./_components/verifier-table";
+
 const Page = () => {
-  return <div>Developing...</div>;
+  return (
+    <div>
+      <VerifiersTable />
+    </div>
+  );
 };
 
 export default Page;
