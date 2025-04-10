@@ -2,7 +2,7 @@
 
 // Packages
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 // Local imports
 import { Button } from "@/components/ui/button";
@@ -19,8 +19,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { loginWithEmailAndPassword, ServerResType } from "@/actions/login";
 import { PasswordInput } from "@/components/ui/password-input";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -28,8 +31,10 @@ export const loginSchema = z.object({
 });
 
 export default function LoginForm() {
-  const isPending = false; // useIsPending();
   const [loading, setLoading] = useState<true | false>(false);
+  const [isPending, startTransition] = useTransition();
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -43,31 +48,31 @@ export default function LoginForm() {
 
   function onSubmit(values: z.infer<typeof loginSchema>) {
     console.log(values);
-    // startTransition(() => {
-    //   loginWithEmailAndPassword(values)
-    //     .then((res: ServerResType) => {
-    //       if (res.success) {
-    //         setLoading(true);
-    //         toast.success("Login successfull 🎉", {
-    //           position: "bottom-right",
-    //           richColors: true,
-    //         });
-    //         router.push("/");
-    //         router.refresh();
-    //       } else {
-    //         toast.error(res.message, {
-    //           position: "top-right",
-    //           richColors: true,
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       toast.error(err.message, {
-    //         position: "top-right",
-    //         richColors: true,
-    //       });
-    //     });
-    // });
+    startTransition(() => {
+      loginWithEmailAndPassword(values)
+        .then((res: ServerResType) => {
+          if (res.success) {
+            setLoading(true);
+            toast.success("Login successfull 🎉", {
+              position: "bottom-right",
+              richColors: true,
+            });
+            router.push("/");
+            router.refresh();
+          } else {
+            toast.error(res.message, {
+              position: "top-right",
+              richColors: true,
+            });
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message, {
+            position: "top-right",
+            richColors: true,
+          });
+        });
+    });
   }
 
   return (

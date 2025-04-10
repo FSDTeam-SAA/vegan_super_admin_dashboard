@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import DashboardNavbar from "./_components/dashboard-nav";
 import Sidebar from "./_components/sidebar";
 
-const AdminDashboardLayout = ({ children }: { children: ReactNode }) => {
+const AdminDashboardLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex min-h-screen">
       <Sidebar lists={adminDashboardTabsList} />

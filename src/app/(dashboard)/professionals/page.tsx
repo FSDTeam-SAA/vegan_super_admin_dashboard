@@ -1,5 +1,11 @@
+import ProfessionalTables from "./_components/professional-table";
+
 const Page = () => {
-  return <div>Developing...</div>;
+  return (
+    <div>
+      <ProfessionalTables />
+    </div>
+  );
 };
 
 export default Page;
