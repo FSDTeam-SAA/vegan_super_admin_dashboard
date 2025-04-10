@@ -51,6 +51,7 @@ export default function LoginForm() {
     startTransition(() => {
       loginWithEmailAndPassword(values)
         .then((res: ServerResType) => {
+          console.log(res);
           if (res.success) {
             setLoading(true);
             toast.success("Login successfull 🎉", {

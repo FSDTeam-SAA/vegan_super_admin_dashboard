@@ -28,7 +28,8 @@ export const loginWithEmailAndPassword = async (
 
     const resData = await response.json();
 
-    if (!response.ok || !resData.status) {
+    if (!response.ok || !resData.success) {
+      console.log("error0", resData);
       throw new Error(resData.message || "Login failed");
     }
 
@@ -40,7 +41,7 @@ export const loginWithEmailAndPassword = async (
         role: resData["data"]["user"]["role"],
         accountType: resData["data"]["user"]["accountType"] ?? "",
       }),
-      redirect: false, // Disable automatic redirect to handle it manually
+      redirectTo: "/", // Disable automatic redirect to handle it manually
       email: data.email,
       password: data.password,
     });

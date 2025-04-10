@@ -33,6 +33,10 @@ export const professionalColumns: ColumnDef<ProfessionalProfile>[] = [
     },
   },
   {
+    accessorKey: "country",
+    header: "Country",
+  },
+  {
     header: "Status",
     cell: ({ row }) => {
       return (

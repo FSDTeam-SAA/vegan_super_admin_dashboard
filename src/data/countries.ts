@@ -160,16 +160,37 @@ export const countries = [
         id: 1,
         label: "Ontario",
         value: "ontario",
+        cites: [
+          {
+            id: 1,
+            label: "Toronto",
+            value: "toronto",
+          },
+        ],
       },
       {
         id: 2,
         label: "British Colombia",
         value: "bcolombia",
+        cites: [
+          {
+            id: 1,
+            label: "Vancouver",
+            value: "vancouver",
+          },
+        ],
       },
       {
         id: 3,
         label: "Quebec",
         value: "quebec",
+        cites: [
+          {
+            id: 1,
+            label: "Montreal",
+            value: "montreal  ",
+          },
+        ],
       },
     ],
   },
@@ -182,6 +203,13 @@ export const countries = [
         id: 1,
         label: "Ciudad de México",
         value: "cdmexico",
+        cites: [
+          {
+            id: 1,
+            label: "Mexico City",
+            value: "mexicocity",
+          },
+        ],
       },
     ],
   },
@@ -194,6 +222,18 @@ export const countries = [
         id: 1,
         label: "England",
         value: "england",
+        cites: [
+          {
+            id: 1,
+            label: "London",
+            value: "london",
+          },
+          {
+            id: 2,
+            label: "Manchester",
+            value: "manchester",
+          },
+        ],
       },
       {
         id: 2,

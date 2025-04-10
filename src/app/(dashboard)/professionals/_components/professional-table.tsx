@@ -50,6 +50,8 @@ const ProfessionalTables = () => {
       value: city.value,
     })) as DropDownItem[];
 
+  console.log(cities);
+
   const {
     data: response,
     isLoading,
@@ -59,7 +61,7 @@ const ProfessionalTables = () => {
     queryKey: ["merchants", country, state, city, currentPage],
     queryFn: () =>
       fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllProfessionals?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=1`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllProfessionals?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=5`
       ).then((res) => res.json()),
   });
 
@@ -92,16 +94,16 @@ const ProfessionalTables = () => {
               />
             </div>
           )}
-          {state && (
+          {/* {state && (
             <div className="flex items-center gap-2">
               <VeganSelector
-                list={cities}
+                list={cities.length > 0 ? cities : []}
                 onValueChange={(value) => setCity(value)}
                 selectedValue={city}
                 placeholder="Select City"
               />
             </div>
-          )}
+          )} */}
 
           <Button
             variant="outline"
