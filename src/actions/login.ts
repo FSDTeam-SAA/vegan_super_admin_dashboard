@@ -1,7 +1,7 @@
 "use server";
 
 import { loginSchema } from "@/app/(auth)/login/_components/login-form";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { z } from "zod";
 
 export interface ServerResType {
@@ -36,12 +36,12 @@ export const loginWithEmailAndPassword = async (
     // // Attempt to sign in with credentials
     await signIn("credentials", {
       data: JSON.stringify({
-        token: resData["data"]["token"],
-        userId: resData["data"]["user"]["_id"],
-        role: resData["data"]["user"]["role"],
-        accountType: resData["data"]["user"]["accountType"] ?? "",
+        userId: resData["Admin"]["id"],
+        role: resData["Admin"]["role"],
+        email: resData["Admin"]["email"] ?? "",
+        fullName: resData["Admin"]["fullName"] ?? "",
       }),
-      redirectTo: "/", // Disable automatic redirect to handle it manually
+      redirect: false, // Disable automatic redirect to handle it manually
       email: data.email,
       password: data.password,
     });
@@ -85,4 +85,8 @@ export async function getUser(userId: string) {
     console.error("Failed to fetch user:", error);
     return null;
   }
+}
+
+export async function logOut() {
+  await signOut({ redirectTo: "/login" });
 }

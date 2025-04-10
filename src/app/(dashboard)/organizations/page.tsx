@@ -1,5 +1,11 @@
+import OrganizationTable from "./_components/organization-table";
+
 const Page = () => {
-  return <div>Developing...</div>;
+  return (
+    <div>
+      <OrganizationTable />
+    </div>
+  );
 };
 
 export default Page;

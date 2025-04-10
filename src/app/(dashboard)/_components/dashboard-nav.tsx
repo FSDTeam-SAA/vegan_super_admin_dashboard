@@ -1,4 +1,5 @@
 "use client";
+import { logOut } from "@/actions/login";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import { useTransition } from "react";
 
 export default function DashboardNavbar() {
   return (
@@ -16,7 +18,16 @@ export default function DashboardNavbar() {
 }
 
 const ProfileBar = () => {
-  const onLogout = () => {};
+  const [isPending, startTransition] = useTransition();
+  const onLogout = () => {
+    startTransition(() => {
+      logOut()
+        .then(() => {})
+        .catch((error) => {
+          console.error("Logout failed:", error);
+        });
+    });
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="border-0 outline-0 ring-0">
@@ -35,7 +46,11 @@ const ProfileBar = () => {
         >
           Visit Website
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onLogout} className="cursor-pointer">
+        <DropdownMenuItem
+          className="cursor-pointer w-full"
+          onClick={onLogout}
+          disabled={isPending}
+        >
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { AdapterUser } from "@auth/core/adapters";
-import { getUser, UserData } from "./actions/login";
 
 export type User = AdapterUser & {
   token: string;
@@ -25,7 +24,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         return {
           id: user.userId, // Use userId as the id
-          token: user.token,
+          email: user.email,
+          name: user.fullName,
+          role: user.role,
         };
       },
     }),
@@ -33,33 +34,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
     signOut: "/",
-  },
-  callbacks: {
-    async session({ session, token }) {
-      if (token.user) {
-        session.user = {
-          ...session.user,
-          accountType: token.user.accountType,
-          userId: token.user._id,
-          email: token.user.email,
-          role: token.user.role,
-          token: token.user.token,
-          paymentAdded: token.user.paymentAdded,
-          isgratings: token.user.isgratings,
-          isVerified: token.user.isVerified,
-        };
-      }
-      return session;
-    },
-    async jwt({ token }) {
-      if (!token.sub) return token;
-
-      const data: UserData = await getUser(token?.sub);
-
-      token.user = { ...data.data };
-
-      return token;
-    },
   },
   secret: process.env.AUTH_SECRET,
   session: {

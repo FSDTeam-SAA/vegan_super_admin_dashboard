@@ -55,7 +55,7 @@ const MerchantTables = () => {
     queryKey: ["merchants", country, state, city, currentPage],
     queryFn: () =>
       fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllMerchants?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=1`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllMerchants?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=10`
       ).then((res) => res.json()),
   });
 
@@ -112,13 +112,15 @@ const MerchantTables = () => {
         </div>
         <TableContainer data={response.data ?? []} columns={merchantColumns} />
 
-        <div className="mt-5 flex items-center justify-center">
-          <VeganPagination
-            currentPage={currentPage}
-            totalPages={response.meta.totalPages}
-            onPageChange={(page) => setCurrentPage(page)}
-          />
-        </div>
+        {response.meta.totalPages > 1 && (
+          <div className="mt-5 flex items-center justify-center">
+            <VeganPagination
+              currentPage={currentPage}
+              totalPages={response.meta.totalPages}
+              onPageChange={(page) => setCurrentPage(page)}
+            />
+          </div>
+        )}
       </div>
     );
   }

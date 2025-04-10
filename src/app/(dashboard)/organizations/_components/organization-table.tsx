@@ -8,9 +8,9 @@ import VeganSelector from "@/components/ui/vegan-selector";
 import { countries } from "@/data/countries";
 import { DropDownItem } from "@/types";
 import {
-  ProfessionalProfile,
-  ProfessionalProfileResponse,
-} from "@/types/professional";
+  OrganizationProfile,
+  OrganizationProfileResponse,
+} from "@/types/organization";
 import { useQuery } from "@tanstack/react-query";
 import {
   ColumnDef,
@@ -18,10 +18,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import { professionalColumns } from "./professional-column";
-// import { merchantColumns } from "./merchant-column";
+import { organizationColumn } from "./organization-column";
 
-const ProfessionalTables = () => {
+const OrganizationTable = () => {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
@@ -55,11 +54,11 @@ const ProfessionalTables = () => {
     isLoading,
     isError,
     error,
-  } = useQuery<ProfessionalProfileResponse>({
-    queryKey: ["merchants", country, state, city, currentPage],
+  } = useQuery<OrganizationProfileResponse>({
+    queryKey: ["organizations", country, state, city, currentPage],
     queryFn: () =>
       fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllProfessionals?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=10`
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/superadmin/getAllOrganizations?country=${country}&state=${state}&city=${city}&page=${currentPage}&limit=10`
       ).then((res) => res.json()),
   });
 
@@ -95,7 +94,7 @@ const ProfessionalTables = () => {
           {state && (
             <div className="flex items-center gap-2">
               <VeganSelector
-                list={cities.length > 0 ? cities : []}
+                list={cities}
                 onValueChange={(value) => setCity(value)}
                 selectedValue={city}
                 placeholder="Select City"
@@ -116,7 +115,7 @@ const ProfessionalTables = () => {
         </div>
         <TableContainer
           data={response.data ?? []}
-          columns={professionalColumns}
+          columns={organizationColumn}
         />
 
         {response.meta.totalPages > 1 && (
@@ -135,11 +134,11 @@ const ProfessionalTables = () => {
   return content;
 };
 
-export default ProfessionalTables;
+export default OrganizationTable;
 
 interface Props {
-  data: ProfessionalProfile[]; // Replace 'any' with the actual type of your data
-  columns: ColumnDef<ProfessionalProfile>[]; // Replace 'any' with the actual type of your columns
+  data: OrganizationProfile[]; // Replace 'any' with the actual type of your data
+  columns: ColumnDef<OrganizationProfile>[]; // Replace 'any' with the actual type of your columns
 }
 
 const TableContainer = ({ data, columns }: Props) => {
