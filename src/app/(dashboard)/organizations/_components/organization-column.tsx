@@ -33,6 +33,18 @@ export const organizationColumn: ColumnDef<OrganizationProfile>[] = [
     },
   },
   {
+    accessorKey: "country",
+    header: "Country",
+  },
+  {
+    accessorKey: "state",
+    header: "State",
+  },
+  {
+    accessorKey: "city",
+    header: "City",
+  },
+  {
     header: "Status",
     cell: ({ row }) => {
       return (

@@ -9,9 +9,16 @@ import SkeletonWrapper from "@/components/ui/skeleton-wrapper";
 import { NavigationItem } from "@/data/dashboard";
 interface Props {
   lists: NavigationItem[];
+  email: string;
+  fullName: string;
 }
 
-export default function Sidebar({ lists }: Props) {
+interface UserProps {
+  email: string;
+  fullName: string;
+}
+
+export default function Sidebar({ lists, email, fullName }: Props) {
   const pathname = usePathname();
 
   const NavigationContent = () => (
@@ -39,7 +46,7 @@ export default function Sidebar({ lists }: Props) {
     </nav>
   );
 
-  const UserProfile = () => {
+  const UserProfile = ({ email, fullName }: UserProps) => {
     return (
       <SkeletonWrapper isLoading={false}>
         <div className="border-t border-white/10 p-4">
@@ -49,8 +56,8 @@ export default function Sidebar({ lists }: Props) {
               <AvatarFallback>AE</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium text-white">Demo Name</p>
-              <p className="text-xs text-gray-400">test@gmail.com</p>
+              <p className="text-sm font-medium text-white">{fullName}</p>
+              <p className="text-xs text-gray-400">{email}</p>
             </div>
           </div>
         </div>
@@ -59,7 +66,7 @@ export default function Sidebar({ lists }: Props) {
   };
 
   // Desktop Sidebar
-  const DesktopSidebar = () => (
+  const DesktopSidebar = ({ email, fullName }: UserProps) => (
     <div className="fixed left-0 top-0 hidden h-screen min-w-[272px] flex-col overflow-y-auto bg-[#1D3557] text-white md:flex">
       <div className="py-6">
         <Link href="/" className="flex items-center gap-2">
@@ -74,13 +81,13 @@ export default function Sidebar({ lists }: Props) {
       </div>
       <NavigationContent />
 
-      <UserProfile />
+      <UserProfile email={email} fullName={fullName} />
     </div>
   );
 
   return (
     <>
-      <DesktopSidebar />
+      <DesktopSidebar email={email} fullName={fullName} />
     </>
   );
 }

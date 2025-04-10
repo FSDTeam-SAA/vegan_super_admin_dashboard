@@ -11,7 +11,11 @@ const AdminDashboardLayout = async ({ children }: { children: ReactNode }) => {
   if (!session?.user) redirect("/login");
   return (
     <div className="flex min-h-screen">
-      <Sidebar lists={adminDashboardTabsList} />
+      <Sidebar
+        lists={adminDashboardTabsList}
+        email={session.user.email as string}
+        fullName={session.user?.name as string}
+      />
       <main className="min-h-screen flex-1 overflow-y-auto bg-[#E8DFD6]">
         <DashboardNavbar />
         <div className="p-4 md:ml-[272px] md:p-10">{children}</div>
