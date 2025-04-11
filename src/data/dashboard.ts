@@ -18,6 +18,12 @@ export const adminDashboardTabsList = [
   },
   {
     id: crypto.randomUUID(),
+    path: "/customers",
+    icon: Users,
+    linkText: "Customers",
+  },
+  {
+    id: crypto.randomUUID(),
     path: "/professionals",
     icon: Users,
     linkText: "Professionals",
