@@ -239,26 +239,61 @@ export const countries = [
         id: 2,
         label: "Germany",
         value: "germany",
+        cites: [
+          {
+            id: 1,
+            label: "Berlin",
+            value: "berlin",
+          },
+        ],
       },
       {
         id: 3,
         label: "Netherlands",
         value: "netherlands",
+        cites: [
+          {
+            id: 1,
+            label: "Amsterdam",
+            value: "amsterdam",
+          },
+        ],
       },
       {
         id: 4,
         label: "Denmark",
         value: "denmark",
+        cites: [
+          {
+            id: 1,
+            label: "Copenhagen",
+            value: "copenhagen",
+          },
+        ],
       },
       {
         id: 5,
         label: "Sweden",
         value: "sweden",
+        cites: [
+          {
+            id: 1,
+            label: "Stockholm",
+            value: "stockholm",
+          },
+        ],
       },
       {
         id: 6,
         label: "Scotland",
         value: "scotland",
+        cites: [
+          {
+            id: 1,
+            label: "Edinburgh",
+            value: "edinburgh",
+          },
+        ],
       },
     ],
   },
@@ -271,11 +306,30 @@ export const countries = [
         id: 1,
         label: "Australia",
         value: "australia",
+        cites: [
+          {
+            id: 1,
+            label: "Sydney",
+            value: "sydney",
+          },
+          {
+            id: 2,
+            label: "Sydney",
+            value: "auckland",
+          },
+        ],
       },
       {
         id: 2,
         label: "New Zealand",
         value: "newzealand",
+        cites: [
+          {
+            id: 1,
+            label: "Auckland",
+            value: "auckland",
+          },
+        ],
       },
     ],
   },
