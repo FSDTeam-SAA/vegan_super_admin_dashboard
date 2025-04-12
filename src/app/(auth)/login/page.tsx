@@ -1,11 +1,16 @@
+import { auth } from "@/auth";
 import { Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 const LoginForm = dynamic(() => import("./_components/login-form"), {
   ssr: false,
 });
 
-const Page = () => {
+const Page = async () => {
+  const currentUser = await auth();
+
+  if (currentUser) redirect("/");
   return (
     <section className="min-h-screen w-full flex justify-center items-center">
       <div className="mb-[48px] mt-[97px]">
