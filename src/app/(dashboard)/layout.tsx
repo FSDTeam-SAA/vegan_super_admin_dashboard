@@ -8,7 +8,7 @@ import Sidebar from "./_components/sidebar";
 const AdminDashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
-  if (!session?.user) redirect("/login");
+  if (!session) redirect("/login");
   return (
     <div className="flex min-h-screen">
       <Sidebar
